@@ -25,6 +25,7 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal Server Error"
   });
 });
+
 const run = async () => {
   await db.sync();
   await app.listen(8000, () => {
