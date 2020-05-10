@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  fetchCookie,
+  cookieFetch,
   cookieCreate,
   cookieList,
   cookieDetail,
@@ -11,7 +11,7 @@ const {
 } = require("../controllers/cookieController");
 
 router.param("cookieId", async (req, res, next, cookieId) => {
-  const cookie = await fetchCookie(cookieId, next);
+  const cookie = await cookieFetch(cookieId, next);
   if (cookie) {
     req.cookie = cookie;
     next();

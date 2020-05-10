@@ -1,7 +1,7 @@
 // Database
 const { Cookie } = require("../db/models");
 
-exports.fetchCookie = async (cookieId, next) => {
+exports.cookieFetch = async (cookieId, next) => {
   try {
     const cookie = await Cookie.findByPk(cookieId);
     return cookie;
@@ -30,7 +30,7 @@ exports.cookieList = async (req, res, next) => {
 
 exports.cookieDetail = async (req, res) => res.json(req.cookie);
 
-exports.cookieUpdate = async (req, res) => {
+exports.cookieUpdate = async (req, res, next) => {
   try {
     await req.cookie.update(req.body);
     res.status(204).end();
@@ -39,7 +39,7 @@ exports.cookieUpdate = async (req, res) => {
   }
 };
 
-exports.cookieDelete = async (req, res) => {
+exports.cookieDelete = async (req, res, next) => {
   try {
     await req.cookie.destroy();
     res.status(204).end();
