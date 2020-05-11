@@ -75,18 +75,13 @@ const storage = multer.diskStorage({
 });
 ```
 
-5. Now every image has a path, to extract the path from the uploaded file and add it to the filename we will use `path` which comes from `nodejs`. We will require it and within `filename` string we call `path.extname` which will extract the image's path and pass it the file's name.
+5. `filename` takes a function that has three arguments, the request, uploaded file and a callback function which we will trigger in `filename`'s function. The callback function `cb` takes two arguments, an error and the new name of the uploaded file. We will set the error to null, and for the name of the uploaded image we will set to the current date (to have a unique name even if the image is uploaded more than one time) followed by the original name of the image.
 
 ```javascript
-const path = require("path");
-
 const storage = multer.diskStorage({
   destination: "./media",
   filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}_${+new Date()}${path.extname(file.originalname)}`
-    );
+    cb(null, `${+new Date()}${file.originalname}`);
   }
 });
 ```
