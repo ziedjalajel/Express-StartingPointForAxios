@@ -21,7 +21,9 @@ exports.cookieCreate = async (req, res, next) => {
 
 exports.cookieList = async (req, res, next) => {
   try {
-    const cookies = await Cookie.findAll();
+    const cookies = await Cookie.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] }
+    });
     res.json(cookies);
   } catch (error) {
     next(error);
