@@ -11,10 +11,16 @@ Cookie.init(
     },
     price: {
       type: DataTypes.INTEGER,
-      defaultValue: 5
+      defaultValue: 5,
+      validate: {
+        min: 1
+      }
     },
     image: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true
+      }
     }
   },
   {
