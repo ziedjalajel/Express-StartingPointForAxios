@@ -2,16 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 // Database
-const db = require("./db");
+const db = require("./db/models");
 
 // Routes
-const cookieRoutes = require("./routes/cookies");
+const productRoutes = require("./routes/products");
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use("/cookies", cookieRoutes);
+app.use("/products", productRoutes);
 
 app.use((req, res, next) => {
   const err = new Error("Path Not Found");
@@ -22,12 +22,12 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
-    message: err.message || "Internal Server Error"
+    message: err.message || "Internal Server Error",
   });
 });
 
 const run = async () => {
-  await db.sync();
+  await db.sequelize.sync();
   await app.listen(8000, () => {
     console.log("The application is running on localhost:8000");
   });
