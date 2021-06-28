@@ -20,15 +20,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
-      },
     },
   });
 
   SequelizeSlugify.slugifyModel(Product, {
     source: ["name"],
   });
-
+  //relations
+  Product.associate = (models) => {
+    models.Shop.hasMany(Product, {
+      foreignKey: "shopId",
+      as: "products",
+      allowNull: false,
+    });
+    Product.belongsTo(models.Shop, {
+      foreignKey: "shopId",
+    });
+  };
   return Product;
 };

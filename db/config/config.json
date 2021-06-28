@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "whalez",
-    "password": null,
-    "database": "taskapp_db",
+    "username": "postgres",
+    "password": "0000",
+    "database": "cookie_db",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false
