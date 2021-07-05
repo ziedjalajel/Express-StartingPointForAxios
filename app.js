@@ -2,6 +2,8 @@ const express = require("express");
 // const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const passport = require("passport");
+const { localStrategy } = require("./middleware/passport");
 
 // Database
 const db = require("./db/models");
@@ -9,14 +11,21 @@ const db = require("./db/models");
 // Routes
 const productRoutes = require("./routes/products");
 const shopRoutes = require("./routes/shops");
+const userRoutes = require("./routes/user");
 
 const app = express();
 // Middleware
 app.use(cors());
+
 app.use(express.json());
+//Passport
+app.use(passport.initialize());
+passport.use(localStrategy);
+
 // Routes
 app.use("/shops", shopRoutes);
 app.use("/products", productRoutes);
+app.use(userRoutes);
 //it suppose to be like this
 // app.use("/media", express.static(path.join(__dirname, "media")));
 //it works like this too and it looks shorter and prettier:
