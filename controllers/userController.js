@@ -15,7 +15,7 @@ exports.signup = async (req, res, next) => {
     next(error);
   }
 };
-exports.signin = (req, res) => {
+exports.signin = (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
 };
